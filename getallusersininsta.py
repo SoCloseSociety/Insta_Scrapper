@@ -44,8 +44,9 @@ class Instagram():
 
         options = Options()
         options.add_argument("--lang=en")
-        options.user_data_dir = "c:\\temp\\profile"
-        options.add_argument('--user-data-dir=c:\\temp\\profile2')
+        print(os. getcwd()+"\\temp\\profile")
+        #options.user_data_dir = "/media/buddhi/New Volume/fiver/soclose/curent/InstaScrapper/temp/profile"  #os. getcwd()+"\\temp\\profile"
+        #options.add_argument('--user-data-dir="/media/buddhi/New Volume/fiver/soclose/curent/InstaScrapper/temp/profile"')
         options.add_argument('--no-first-run --no-service-autorun --password-store=basic')
         options.add_argument("start-maximized")
         options.add_argument('--disable-blink-features=AutomationControlled')
@@ -62,7 +63,7 @@ class Instagram():
 
 
 
-        self.driver = webdriver.Chrome(options=options, executable_path=r"chromedriver.exe")     
+        self.driver = webdriver.Chrome(options=options,executable_path="chromedriver")# executable_path=os.getcwd()+"chromedriver"
 
         #driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
         time.sleep(1)
@@ -73,7 +74,18 @@ class Instagram():
         start = input("press Y if you need to sart scrapping hit enter")
         crawlc = (int(self.aa)/6)
         for xx in range(int(crawlc+10)):
-            self. driver.execute_script('''var fDialog = document.querySelector('div[role="dialog"] .isgrP');fDialog.scrollTop = fDialog.scrollHeight''')
+            randompause = random.randint(1,4)
+            if randompause == 3:
+                waittym = random.randint(15,60)
+                print("while crawling it takes the rest dut to bot detection wait time  : "+str(waittym))
+                time.sleep(waittym)
+            else:
+                print(str(randompause)+"  still scrowling")
+
+            try:
+                self. driver.execute_script('''var fDialog = document.querySelector('div[role="dialog"] .isgrP');fDialog.scrollTop = fDialog.scrollHeight''')
+            except Exception :
+                print("crowling issue")
             print("reaching up to that limit")
             time.sleep(random.randint(0,2))
         print("crawling finished")
